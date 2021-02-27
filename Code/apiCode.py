@@ -13,12 +13,13 @@ def test():
     moneyLine = pd.read_csv(
         '/Users/mattbubb/Spring_2021/DS_340W/Sports-Betting-340W/Data/nba_betting_money_line.csv')
     print(g.isna().sum())
-    g = g.drop_duplicates('game_id')
-    g = g.rename({'wl': 'homeTeamResult', 'team_id': 'homeTeamID'}, axis=1)
-    g = g.merge(moneyLine, how='inner', on='game_id')
-    g = g.pivot_table(index=['game_id', 'matchup', 'game_date',  'w', 'l', 'w_pct', 'season_type', 'season'], columns='book_name',
-                      values=['price1', 'price2'])
-    return g
+    #g = g.drop_duplicates('game_id')
+    #g = g.rename({'wl': 'homeTeamResult', 'team_id': 'homeTeamID'}, axis=1)
+    #g = g.merge(moneyLine, how='inner', on='game_id')
+    # g = g.pivot_table(index=['game_id', 'matchup', 'game_date',  'w', 'l', 'w_pct', 'season_type', 'season'], columns='book_name',
+    # values=['price1', 'price2'])
+    return g.sort_values('game_date', ascending=False).merge(moneyLine, how='right', on='game_id').dropna()
+    # return moneyLine.describe('game_date')
 
 
 def req():
